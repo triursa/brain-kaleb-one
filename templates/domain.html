@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TITLE}} — brain.kaleb.one</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Georgia&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #09090b;
+  --bg-gradient: linear-gradient(135deg, #09090b 0%, #1a1a2e 50%, #09090b 100%);
+  --surface: rgba(255,255,255,0.06);
+  --surface-hover: rgba(255,255,255,0.1);
+  --border: rgba(255,255,255,0.1);
+  --border-hover: rgba(255,255,255,0.2);
+  --text: #fafafa;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --accent: #60a5fa;
+  --accent-glow: rgba(96,165,250,0.15);
+  --domain-color: {{DOMAIN_COLOR}};
+  --font-ui: 'Inter', -apple-system, sans-serif;
+  --font-serif: 'Georgia', serif;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --blur: blur(20px);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-ui); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; }
+.bg-ambient { position: fixed; inset: 0; z-index: -1; background: var(--bg-gradient); }
+.bg-ambient::before {
+  content: ''; position: absolute; top: -30%; left: -15%; width: 50%; height: 50%;
+  background: radial-gradient(ellipse, {{DOMAIN_COLOR}}22 0%, transparent 70%);
+  animation: f1 20s ease-in-out infinite;
+}
+@keyframes f1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(3%,5%)} }
+.app { max-width: 960px; margin: 0 auto; padding: 24px; }
+.topbar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 16px 24px; margin-bottom: 32px;
+  background: var(--surface); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+  border: 1px solid var(--border); border-radius: var(--radius); font-size: 14px;
+}
+.topbar a { color: var(--text-secondary); text-decoration: none; transition: color 0.15s; }
+.topbar a:hover { color: var(--accent); }
+.topbar .sep { color: var(--text-muted); margin: 0 4px; }
+.topbar .current { color: var(--text); font-weight: 600; }
+
+.glass-card {
+  background: var(--surface); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 20px; margin-bottom: 12px; transition: all 0.25s;
+}
+.glass-card:hover { border-color: var(--border-hover); transform: translateY(-1px); }
+
+.note-card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.note-card-header h3 { font-size: 16px; font-weight: 600; flex: 1; }
+.note-card-header h3 a { color: var(--text); text-decoration: none; }
+.note-card-header h3 a:hover { color: var(--accent); }
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+.tag { font-size: 11px; padding: 2px 8px; border-radius: 6px; background: rgba(255,255,255,0.05); color: var(--text-muted); }
+.status-tag { font-size: 11px; padding: 2px 8px; border-radius: 6px; font-weight: 500; }
+.status-tag.loop { background: rgba(234,179,8,0.15); color: #eab308; }
+.status-tag.paused { background: rgba(113,113,122,0.15); color: #71717a; }
+.status-tag.active { background: rgba(34,197,94,0.15); color: #22c55e; }
+
+.note-excerpt { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+.section-header {
+  font-size: 24px; font-weight: 700; margin-bottom: 24px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-header .icon { font-size: 28px; }
+.section-desc { color: var(--text-muted); margin-bottom: 24px; }
+
+.footer { text-align: center; padding: 40px 0 20px; color: var(--text-muted); font-size: 12px; }
+.empty-state { color: var(--text-muted); font-style: italic; font-size: 14px; padding: 20px 0; }
+
+@media (max-width: 768px) { .app { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="bg-ambient"></div>
+<div class="app">
+  <nav class="topbar">
+    <a href="/">🧠 brain</a>
+    <span class="sep">→</span>
+    <span class="current">{{ICON}} {{LABEL}}</span>
+  </nav>
+  <h1 class="section-header"><span class="icon">{{ICON}}</span>{{LABEL}}</h1>
+  <p class="section-desc">{{DESC}}</p>
+  {{FILES}}
+  <div class="footer">brain.kaleb.one — <a href="/" style="color:var(--accent);text-decoration:none;">Back to Mission Control</a></div>
+</div>
+</body>
+</html>

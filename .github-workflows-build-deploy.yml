@@ -1,0 +1,53 @@
+name: Build & Deploy brain.kaleb.one
+
+on:
+  repository_dispatch:
+    types: [rebuild-brain]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout app repo
+        uses: actions/checkout@v4
+
+      - name: Checkout second-brain-vault (sparse)
+        uses: actions/checkout@v4
+        with:
+          repository: triursa/second-brain-vault
+          ref: master
+          path: _vault
+          token: ${{ secrets.REPO_PAT }}
+          sparse-checkout: |
+            domains/health
+            domains/household
+            domains/novel
+            domains/finance
+            domains/tools
+            domains/ai-tooling
+            inbox
+            journal
+            notes
+            maps
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Run build
+        env:
+          VAULT_DIR: ${{ github.workspace }}/_vault
+          OUTPUT_DIR: ${{ github.workspace }}/_site
+        run: python3 scripts/build.py
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy _site --project-name=brain --branch=main

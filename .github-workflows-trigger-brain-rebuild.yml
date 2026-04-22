@@ -1,0 +1,30 @@
+name: Trigger brain.kaleb.one Rebuild
+
+on:
+  push:
+    paths:
+      - 'domains/health/**'
+      - 'domains/household/**'
+      - 'domains/novel/**'
+      - 'domains/finance/**'
+      - 'domains/tools/**'
+      - 'domains/ai-tooling/**'
+      - 'inbox/**'
+      - 'journal/**'
+      - 'notes/personal/**'
+      - 'maps/**'
+    branches:
+      - master
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch rebuild to brain-kaleb-one
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.REPO_PAT }}
+          repository: triursa/brain-kaleb-one
+          event-type: rebuild-brain
+          client-payload: |
+            {"ref": "${{ github.sha }}", "trigger": "${{ github.repository }}"}
