@@ -1,30 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="obsidian" data-domain="brain">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#11151C">
 <title>{{TITLE}} — brain.kaleb.one</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Georgia&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://theme.kaleb.one/dist/theme-obsidian.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Georgia&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #09090b;
-  --bg-gradient: linear-gradient(135deg, #09090b 0%, #1a1a2e 50%, #09090b 100%);
-  --surface: rgba(255,255,255,0.06);
-  --surface-hover: rgba(255,255,255,0.1);
-  --border: rgba(255,255,255,0.1);
-  --border-hover: rgba(255,255,255,0.2);
-  --text: #fafafa;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
+  /* M3 Obsidian base tokens from theme-obsidian.css */
+  --md-sys-color-primary: #60a5fa;
+  --md-sys-color-on-primary: #1a1a1d;
+  --md-sys-color-primary-container: rgba(96,165,250,0.15);
+
+  /* Semantic/signal colors (NOT theme tokens — preserved) */
   --accent: #60a5fa;
   --accent-glow: rgba(96,165,250,0.15);
   --domain-color: {{DOMAIN_COLOR}};
+
+  /* Shorthand aliases for M3 tokens (used throughout styles) */
+  --bg: var(--md-sys-color-surface);
+  --bg-gradient: linear-gradient(135deg, var(--md-sys-color-surface) 0%, #1a1a2e 50%, var(--md-sys-color-surface) 100%);
+  --surface: var(--md-sys-color-surface-container-low);
+  --surface-hover: var(--md-sys-color-surface-container);
+  --border: var(--md-sys-color-outline-variant);
+  --border-hover: var(--md-sys-color-outline);
+  --text: var(--md-sys-color-on-surface);
+  --text-secondary: var(--md-sys-color-on-surface-variant);
+  --text-muted: var(--md-sys-color-outline);
+  --radius: var(--md-sys-shape-corner-large);
+  --radius-sm: var(--md-sys-shape-corner-medium);
   --font-ui: 'Inter', -apple-system, sans-serif;
   --font-serif: 'Georgia', serif;
-  --radius: 16px;
-  --radius-sm: 10px;
-  --blur: blur(20px);
+  --mono: 'JetBrains Mono', 'DM Mono', monospace;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -40,8 +51,7 @@ body { font-family: var(--font-ui); background: var(--bg); color: var(--text); m
 .topbar {
   display: flex; align-items: center; gap: 8px;
   padding: 16px 24px; margin-bottom: 32px;
-  background: var(--surface); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
-  border: 1px solid var(--border); border-radius: var(--radius); font-size: 14px;
+  background: var(--surface);   border: 1px solid var(--border); border-radius: var(--radius); font-size: 14px;
 }
 .topbar a { color: var(--text-secondary); text-decoration: none; transition: color 0.15s; }
 .topbar a:hover { color: var(--accent); }
@@ -49,8 +59,7 @@ body { font-family: var(--font-ui); background: var(--bg); color: var(--text); m
 .topbar .current { color: var(--text); font-weight: 500; }
 
 .note-content {
-  background: var(--surface); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
-  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--surface);   border: 1px solid var(--border); border-radius: var(--radius);
   padding: 40px; border-top: 2px solid var(--domain-color);
 }
 .note-content h1 {

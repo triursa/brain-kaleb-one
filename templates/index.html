@@ -1,29 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="obsidian" data-domain="brain">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#11151C">
 <title>brain.kaleb.one — Mission Control</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Georgia&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://theme.kaleb.one/dist/theme-obsidian.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Georgia&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #09090b;
-  --bg-gradient: linear-gradient(135deg, #09090b 0%, #1a1a2e 50%, #09090b 100%);
-  --surface: rgba(255,255,255,0.06);
-  --surface-hover: rgba(255,255,255,0.1);
-  --border: rgba(255,255,255,0.1);
-  --border-hover: rgba(255,255,255,0.2);
-  --text: #fafafa;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
+:root {
+  /* M3 Obsidian base tokens from theme-obsidian.css */
+  --md-sys-color-primary: #60a5fa;
+  --md-sys-color-on-primary: #1a1a1d;
+  --md-sys-color-primary-container: rgba(96,165,250,0.15);
+
+  /* Semantic/signal colors (NOT theme tokens — preserved) */
   --accent: #60a5fa;
   --accent-glow: rgba(96,165,250,0.15);
+
+  /* Shorthand aliases for M3 tokens (used throughout styles) */
+  --bg: var(--md-sys-color-surface);
+  --bg-gradient: linear-gradient(135deg, var(--md-sys-color-surface) 0%, #1a1a2e 50%, var(--md-sys-color-surface) 100%);
+  --surface: var(--md-sys-color-surface-container-low);
+  --surface-hover: var(--md-sys-color-surface-container);
+  --border: var(--md-sys-color-outline-variant);
+  --border-hover: var(--md-sys-color-outline);
+  --text: var(--md-sys-color-on-surface);
+  --text-secondary: var(--md-sys-color-on-surface-variant);
+  --text-muted: var(--md-sys-color-outline);
+  --radius: var(--md-sys-shape-corner-large);
+  --radius-sm: var(--md-sys-shape-corner-medium);
   --font-ui: 'Inter', -apple-system, sans-serif;
   --font-serif: 'Georgia', serif;
-  --radius: 16px;
-  --radius-sm: 10px;
-  --blur: blur(20px);
+  --mono: 'JetBrains Mono', 'DM Mono', monospace;
+}
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -61,8 +74,7 @@ body {
   display: flex; align-items: center; justify-content: space-between;
   padding: 16px 24px; margin-bottom: 32px;
   background: var(--surface);
-  backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
-  border: 1px solid var(--border); border-radius: var(--radius);
+    border: 1px solid var(--border); border-radius: var(--radius);
 }
 .topbar-left { display: flex; align-items: center; gap: 12px; }
 .topbar-logo {
@@ -85,8 +97,7 @@ body {
 .search-wrap { position: relative; margin-bottom: 32px; }
 .search-input {
   width: 100%; padding: 14px 20px 14px 48px;
-  background: var(--surface); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
-  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--surface);   border: 1px solid var(--border); border-radius: var(--radius);
   color: var(--text); font-size: 15px; font-family: var(--font-ui); outline: none;
   transition: border-color 0.2s;
 }
@@ -98,8 +109,7 @@ body {
 }
 .search-results {
   position: absolute; top: 100%; left: 0; right: 0;
-  background: rgba(24,24,27,0.98); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
-  border: 1px solid var(--border); border-radius: 0 0 var(--radius) var(--radius);
+  background: var(--md-sys-color-surface-container-high);   border: 1px solid var(--border); border-radius: 0 0 var(--radius) var(--radius);
   max-height: 400px; overflow-y: auto; display: none; z-index: 100;
 }
 .search-results.visible { display: block; }
@@ -126,8 +136,7 @@ body {
   gap: 16px; margin-bottom: 40px;
 }
 .stat-card {
-  background: var(--surface); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
-  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--surface);   border: 1px solid var(--border); border-radius: var(--radius);
   padding: 20px; text-align: center; transition: border-color 0.2s;
 }
 .stat-card:hover { border-color: var(--border-hover); }
@@ -136,8 +145,7 @@ body {
 
 /* Glass cards */
 .glass-card {
-  background: var(--surface); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
-  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--surface);   border: 1px solid var(--border); border-radius: var(--radius);
   padding: 20px; transition: all 0.25s; position: relative; overflow: hidden;
 }
 .glass-card::before {
